@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown to June 12, 2024</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: lightgray;
+    }
+
+    #countdown {
+      font-size: 24px;
+      margin-top: 50px;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>Countdown to the end of School</h1>
+  <div id="countdown"></div>
+
+  <script>
+    // Define holidays and excluded weekdays
+    const excludedDates = [
+      "2024-02-20",
+      "2024-02-19",
+      "2024-03-05",
+      "2024-03-11",
+      "2024-03-25",
+      "2024-03-26",
+      "2024-03-27",
+      "2024-03-28",
+      "2024-03-29",
+      "2024-04-10",
+      "2024-04-29",
+      "2024-05-27"
+    ];
+
+    function calculateBusinessDays(startDate, endDate, excludedDates) {
+      let currentDate = new Date(startDate);
+      let endDateObj = new Date(endDate);
+      let businessDays = 0;
+
+      while (currentDate <= endDateObj) {
+        const dayOfWeek = currentDate.getDay();
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; // Sunday or Saturday
+
+        const formattedDate = currentDate.toISOString().split('T')[0];
+
+        if (!isWeekend && !excludedDates.includes(formattedDate)) {
+          businessDays++;
+        }
+
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      return businessDays;
+    }
+
+    // Set the target date (June 12, 2024)
+    const targetDate = new Date("2024-06-12");
+    const currentDate = new Date();
+
+    // Calculate business days between current date and target date
+    const businessDays = calculateBusinessDays(currentDate, targetDate, excludedDates);
+
+    // Display the countdown
+    const countdownElement = document.getElementById('countdown');
+    countdownElement.textContent = `Days remaining until school ends: ${businessDays}`;
+  </script>
+</body>
+</html>
