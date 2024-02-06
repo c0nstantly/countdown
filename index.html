@@ -98,6 +98,26 @@
       countdownElement.textContent = `Days remaining until school ends: ${businessDays}`;
     }
 
+    function updateClock() {
+      // Set the target time (2:15 PM EST)
+      const targetTime = new Date();
+      targetTime.setHours(14, 15, 0, 0); // 2:15 PM EST
+
+      // Get the current time
+      const currentTime = new Date();
+
+      // Calculate the difference in milliseconds
+      let diff = targetTime - currentTime;
+
+      // Convert milliseconds to minutes and seconds
+      const minutes = Math.floor(diff / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      // Display the clock
+      const clockElement = document.getElementById('clock');
+      clockElement.textContent = `Countdown to 2:15 PM EST: ${minutes} minutes ${seconds} seconds`;
+    }
+
     // Function to check if it's 2:15 PM EST
     function checkTime() {
       const currentTime = new Date();
@@ -124,11 +144,13 @@
     document.getElementById('startButton').addEventListener('click', function() {
       updateCountdown();
       countdownInterval = setInterval(updateCountdown, 60000); // Update countdown every minute
+      setInterval(updateClock, 1000); // Update clock every second
     });
 
     // Event listener for stop countdown button
     document.getElementById('stopButton').addEventListener('click', function() {
       clearInterval(countdownInterval);
+      document.getElementById('clock').textContent = "";
     });
 
     // Event listener for trigger confetti button
