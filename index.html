@@ -5,28 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Countdown to June 12, 2024</title>
   <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    background-color: lightgray;
-  }
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: lightgray;
+    }
 
-  h1 {
-  font-size: 48px;
-  }
-  #countdown {
-    font-size: 32px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-</style>
+    h1 {
+      font-size: 48px;
+    }
+
+    #countdown {
+      font-size: 32px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #clock {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
 
 </head>
 <body>
   <h1>Countdown to the end of School</h1>
   <div id="countdown"></div>
+  <div id="clock"></div>
 
   <script>
     // Define holidays and excluded weekdays
@@ -76,6 +83,31 @@
     // Display the countdown
     const countdownElement = document.getElementById('countdown');
     countdownElement.textContent = `Days remaining until school ends: ${businessDays}`;
+
+    // Function to check if it's 2:15 PM EST
+    function checkTime() {
+      const currentTime = new Date();
+      const estTime = new Date(currentTime.toLocaleString("en-US", {timeZone: "America/New_York"}));
+      const estHours = estTime.getHours();
+      const estMinutes = estTime.getMinutes();
+
+      if (estHours === 14 && estMinutes === 15) {
+        // Display message and trigger confetti effect
+        document.getElementById('clock').textContent = "School is over!";
+        triggerConfetti();
+      }
+    }
+
+    // Function to trigger confetti effect
+    function triggerConfetti() {
+      // Add your confetti effect triggering code here
+      // For example, you can use libraries like confetti-js
+      // For simplicity, let's just log a message here
+      console.log("Confetti effect triggered!");
+    }
+
+    // Call checkTime() every minute
+    setInterval(checkTime, 60000);
   </script>
 </body>
 </html>
