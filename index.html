@@ -90,12 +90,19 @@
       // Calculate business days between current date and target date
       const businessDays = calculateBusinessDays(currentDate, targetDate, excludedDates);
 
-      // Calculate hours
-      const hours = (targetDate - currentDate) / 1000 / 3600;
+      // Calculate remaining time until 2:15 PM
+      const targetTime = new Date();
+      targetTime.setHours(14, 15, 0, 0); // 2:15 PM
+      const timeDiff = targetTime - currentDate;
+
+      // Convert milliseconds to minutes, hours, and seconds
+      const minutes = Math.floor(timeDiff / (1000 * 60)) % 60;
+      const hours = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
+      const seconds = Math.floor(timeDiff / 1000) % 60;
 
       // Display the countdown
       const countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = `Days remaining until school ends: ${businessDays}, Hours remaining: ${hours.toFixed(2)}`;
+      countdownElement.textContent = `Days remaining until school ends: ${businessDays}, Time until 2:15 PM: ${hours} hours ${minutes} minutes ${seconds} seconds`;
     }
 
     function updateClock() {
@@ -144,7 +151,7 @@
 
     // Start the countdown automatically
     updateCountdown();
-    countdownInterval = setInterval(updateCountdown, 60000); // Update countdown every minute
+    countdownInterval = setInterval(updateCountdown, 1000); // Update countdown every second
     setInterval(updateClock, 1000); // Update clock every second
   </script>
 </body>
