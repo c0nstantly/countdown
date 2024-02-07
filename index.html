@@ -134,15 +134,12 @@
 
     // Function to trigger confetti effect
     function triggerConfetti() {
-      // Add your confetti effect triggering code here
-      // For example, you can use libraries like confetti-js
-      // For simplicity, let's just log a message here
-      console.log("Confetti effect triggered!");
       confetti.setCount(75);
       confetti.setSize(1);
       confetti.setPower(25);
       confetti.setFade(false);
-      confetti.destroyTarget(true);
+      confetti.destroyTarget(false);
+      console.log("Confetti effect triggered!");
     }
 
     // Event listener for start countdown button
