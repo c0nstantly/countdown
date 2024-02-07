@@ -100,29 +100,13 @@
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-      // Display the countdown
-      const countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = `Time until 2:15 PM: ${hours} hours ${minutes} minutes ${seconds} seconds`;
-    }
+      // Display the countdown to 2:15 PM
+      const countdownElement = document.getElementById('clock');
+      countdownElement.textContent = `Countdown to 2:15 PM EST: ${hours} hours ${minutes} minutes ${seconds} seconds`;
 
-    function updateClock() {
-      // Set the target time (2:15 PM EST)
-      const targetTime = new Date();
-      targetTime.setHours(14, 15, 0, 0); // 2:15 PM EST
-
-      // Get the current time
-      const currentTime = new Date();
-
-      // Calculate the difference in milliseconds
-      let diff = targetTime - currentTime;
-
-      // Convert milliseconds to minutes and seconds
-      const minutes = Math.floor(diff / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
-
-      // Display the clock
-      const clockElement = document.getElementById('clock');
-      clockElement.textContent = `Countdown to 2:15 PM EST: ${minutes} minutes ${seconds} seconds`;
+      // Display the countdown for days until school ends
+      const countdownDaysElement = document.getElementById('countdown');
+      countdownDaysElement.textContent = `Days remaining until school ends: ${businessDays}`;
     }
 
     // Function to check if it's 2:15 PM EST
@@ -152,7 +136,6 @@
     // Start the countdown automatically
     updateCountdown();
     countdownInterval = setInterval(updateCountdown, 1000); // Update countdown every second
-    setInterval(updateClock, 1000); // Update clock every second
   </script>
 </body>
 </html>
