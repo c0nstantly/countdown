@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown to June 12, 2024</title>
+  <title>Countdown to the end of School</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -41,9 +41,6 @@
   <h1>Countdown to the end of School</h1>
   <div id="countdown"></div>
   <div id="clock"></div>
-  <button class="button" id="startButton">Start Countdown</button>
-  <button class="button" id="stopButton">Stop Countdown</button>
-  <button class="button" id="demo">Trigger Confetti</button>
   <script src="confetti.min.js"></script>
   <script>
     let countdownInterval;
@@ -93,9 +90,12 @@
       // Calculate business days between current date and target date
       const businessDays = calculateBusinessDays(currentDate, targetDate, excludedDates);
 
+      // Calculate hours
+      const hours = (targetDate - currentDate) / 1000 / 3600;
+
       // Display the countdown
       const countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = `Days remaining until school ends: ${businessDays}`;
+      countdownElement.textContent = `Days remaining until school ends: ${businessDays}, Hours remaining: ${hours.toFixed(2)}`;
     }
 
     function updateClock() {
@@ -142,23 +142,10 @@
       console.log("Confetti effect triggered!");
     }
 
-    // Event listener for start countdown button
-    document.getElementById('startButton').addEventListener('click', function() {
-      updateCountdown();
-      countdownInterval = setInterval(updateCountdown, 60000); // Update countdown every minute
-      setInterval(updateClock, 1000); // Update clock every second
-    });
-
-    // Event listener for stop countdown button
-    document.getElementById('stopButton').addEventListener('click', function() {
-      clearInterval(countdownInterval);
-      document.getElementById('clock').textContent = "";
-    });
-
-    // Event listener for trigger confetti button
-    document.getElementById('confettiButton').addEventListener('click', function() {
-      triggerConfetti();
-    });
+    // Start the countdown automatically
+    updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 60000); // Update countdown every minute
+    setInterval(updateClock, 1000); // Update clock every second
   </script>
 </body>
 </html>
