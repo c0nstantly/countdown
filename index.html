@@ -43,11 +43,11 @@
   <div id="clock"></div>
   <button class="button" id="startButton">Start Countdown</button>
   <button class="button" id="stopButton">Stop Countdown</button>
-  <button class="button" id="confettiButton">Trigger Confetti</button>
-
+  <button class="button" id="demo">Trigger Confetti</button>
+  <script src="confetti.min.js"></script>
   <script>
     let countdownInterval;
-
+    let confetti = new Confetti('demo');
     // Define holidays and excluded weekdays
     const excludedDates = [
       "2024-02-20",
@@ -138,6 +138,11 @@
       // For example, you can use libraries like confetti-js
       // For simplicity, let's just log a message here
       console.log("Confetti effect triggered!");
+      confetti.setCount(75);
+      confetti.setSize(1);
+      confetti.setPower(25);
+      confetti.setFade(false);
+      confetti.destroyTarget(true);
     }
 
     // Event listener for start countdown button
