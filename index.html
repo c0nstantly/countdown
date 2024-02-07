@@ -102,7 +102,7 @@
 
       // Display the countdown
       const countdownElement = document.getElementById('countdown');
-      countdownElement.textContent = `Days remaining until school ends: ${businessDays}, Time until 2:15 PM: ${hours} hours ${minutes} minutes ${seconds} seconds`;
+      countdownElement.innerHTML = `Days remaining until school ends: ${businessDays}<br>Time until 2:15 PM:<br>${hours} hours<br>${minutes} minutes`;
     }
 
     function updateClock() {
