@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Countdown to the end of School</title>
+  <title>Countdown to the End of School</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -38,27 +38,20 @@
   </style>
 </head>
 <body>
-  <h1>Countdown to the end of School</h1>
+  <h1>Countdown to the End of School</h1>
   <div id="countdown"></div>
   <div id="clock"></div>
   <script src="confetti.min.js"></script>
   <script>
     let countdownInterval;
     let confetti = new Confetti('demo');
-    // Define holidays and excluded weekdays
+
+    // Define holidays and excluded dates
     const excludedDates = [
-      "2024-02-20",
-      "2024-02-19",
-      "2024-03-05",
-      "2024-03-11",
-      "2024-03-25",
-      "2024-03-26",
-      "2024-03-27",
-      "2024-03-28",
-      "2024-03-29",
-      "2024-04-10",
-      "2024-04-29",
-      "2024-05-27"
+      "2024-12-23", "2024-12-24", "2024-12-25", "2024-12-26", "2024-12-27", "2024-12-28", "2024-12-29", "2024-12-30", "2024-12-31",
+      "2025-01-01", "2025-01-02", "2025-01-20", "2025-01-21", "2025-02-17",
+      "2025-03-14", "2025-03-31", "2025-04-01", "2025-04-02", "2025-04-03", "2025-04-04",
+      "2025-04-07", "2025-04-18", "2025-05-02", "2025-05-26"
     ];
 
     function calculateBusinessDays(startDate, endDate, excludedDates) {
@@ -83,8 +76,8 @@
     }
 
     function updateCountdown() {
-      // Set the target date (June 12, 2024)
-      const targetDate = new Date("2024-06-12");
+      // Set the target date (June 13, 2025)
+      const targetDate = new Date("2025-06-13");
       const currentDate = new Date();
 
       // Calculate business days between current date and target date
