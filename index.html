@@ -45,13 +45,12 @@
   <script>
     let countdownInterval;
     let confetti = new Confetti('demo');
+    let confettiShown = false;
 
     // Define holidays and excluded dates
     const excludedDates = [
-      "2024-12-23", "2024-12-24", "2024-12-25", "2024-12-26", "2024-12-27", "2024-12-28", "2024-12-29", "2024-12-30", "2024-12-31",
-      "2025-01-01", "2025-01-02", "2025-01-20", "2025-01-21", "2025-02-17",
-      "2025-03-14", "2025-03-31", "2025-04-01", "2025-04-02", "2025-04-03", "2025-04-04",
-      "2025-04-07", "2025-04-18", "2025-05-02", "2025-05-26"
+      "2025-04-18", // Good Friday
+      "2025-05-26"  // Memorial Day
     ];
 
     function calculateBusinessDays(startDate, endDate, excludedDates) {
@@ -61,7 +60,7 @@
 
       while (currentDate <= endDateObj) {
         const dayOfWeek = currentDate.getDay();
-        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6; // Sunday or Saturday
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
         const formattedDate = currentDate.toISOString().split('T')[0];
 
@@ -76,47 +75,39 @@
     }
 
     function updateCountdown() {
-      // Set the target date (June 13, 2025)
-      const targetDate = new Date("2025-06-13");
+      const targetDate = new Date("2025-06-13T00:00:00");
       const currentDate = new Date();
 
-      // Calculate business days between current date and target date
+      // Calculate business days from today to June 13, 2025
       const businessDays = calculateBusinessDays(currentDate, targetDate, excludedDates);
 
-      // Calculate remaining time until 2:15 PM
-      const targetTime = new Date();
-      targetTime.setHours(14, 15, 0, 0); // 2:15 PM
-      const timeDiff = targetTime - currentDate;
-
-      // Convert milliseconds to hours, minutes, and seconds
-      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-      // Display the countdown to 2:15 PM
-      const countdownElement = document.getElementById('clock');
-      countdownElement.textContent = `Countdown to 2:15 PM EST: ${hours} hours ${minutes} minutes ${seconds} seconds`;
-
-      // Display the countdown for days until school ends
       const countdownDaysElement = document.getElementById('countdown');
       countdownDaysElement.textContent = `Days remaining until school ends: ${businessDays}`;
-    }
 
-    // Function to check if it's 2:15 PM EST
-    function checkTime() {
-      const currentTime = new Date();
-      const estTime = new Date(currentTime.toLocaleString("en-US", {timeZone: "America/New_York"}));
-      const estHours = estTime.getHours();
-      const estMinutes = estTime.getMinutes();
+      // Handle EST countdown to 2:15 PM
+      const estNow = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+      const estTargetTime = new Date(estNow);
+      estTargetTime.setHours(14, 15, 0, 0); // 2:15 PM
 
-      if (estHours === 14 && estMinutes === 15) {
-        // Display message and trigger confetti effect
-        document.getElementById('clock').textContent = "School is over!";
-        triggerConfetti();
+      const timeDiff = estTargetTime - estNow;
+
+      let message = '';
+      if (timeDiff > 0) {
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        message = `Countdown to 2:15 PM EST: ${hours} hours ${minutes} minutes ${seconds} seconds`;
+      } else {
+        message = "School is over!";
+        if (!confettiShown) {
+          triggerConfetti();
+          confettiShown = true;
+        }
       }
+
+      document.getElementById('clock').textContent = message;
     }
 
-    // Function to trigger confetti effect
     function triggerConfetti() {
       confetti.setCount(75);
       confetti.setSize(1);
@@ -126,9 +117,9 @@
       console.log("Confetti effect triggered!");
     }
 
-    // Start the countdown automatically
+    // Start the countdown
     updateCountdown();
-    countdownInterval = setInterval(updateCountdown, 1000); // Update countdown every second
+    countdownInterval = setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
